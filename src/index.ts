@@ -23,7 +23,7 @@ function generateMD5(filePath: string): string {
 
 export type SyncInfoType = {
   VerseOrder: number;
-  AudioMilliseconds: number;
+  AudioMiliseconds: number;
 };
 
 function generateSyncInfo(couplets: CoupletType[]): SyncInfoType[] {
@@ -33,13 +33,13 @@ function generateSyncInfo(couplets: CoupletType[]): SyncInfoType[] {
     // Assuming the first verse corresponds to the 'persian1' field
     syncInfoArray.push({
       VerseOrder: index * 2, // Even index for the first verse of each couplet
-      AudioMilliseconds: couplet.coupletStartTime * 1000
+      AudioMiliseconds: couplet.coupletStartTime * 1000
     });
 
     // Assuming the second verse corresponds to the 'persian2' field
     syncInfoArray.push({
       VerseOrder: index * 2 + 1, // Odd index for the second verse of each couplet
-      AudioMilliseconds: couplet.verseEndTime * 1000
+      AudioMiliseconds: couplet.verseEndTime * 1000
     });
   });
 
@@ -55,7 +55,7 @@ async function processPoemDocument(): Promise<void> {
     const mp3File = `rubai-${rubaiNumber}.mp3`;
     const mp3FilePath = path.join(rubaiFolder, mp3File);
 
-    const xmlBuilder = new Builder();
+    const xmlBuilder = new Builder({ headless: true });
     const description = `فایل صوتی بخش ${rubaiNumber + 1} - ${poemData.poemName}`;
     const fileCheckSum = generateMD5(mp3FilePath);
 
@@ -63,7 +63,7 @@ async function processPoemDocument(): Promise<void> {
       DesktopGanjoorPoemAudioList: {
         PoemAudio: {
           PoemId: settings.ganjoorBaseId + rubaiNumber,
-          Id: rubaiNumber,
+          Id: 1,
           FilePath: mp3File,
           Description: description,
           FileCheckSum: fileCheckSum,
