@@ -49,12 +49,13 @@ function readPoemFileSync(filePath: string): string {
 }
 
 
-export async function processPoemDocumentv2(): Promise<PoemDataType> {
+export async function readPoemAndMarkers(rootPath: string): Promise<PoemDataType> {
   try {
-    const inputText = readPoemFileSync(process.env.POEM_TEXT_FILE as string);
+    console.log(rootPath);
+    const inputText = readPoemFileSync(rootPath + process.env.POEM_TEXT_FILE);
 
     // Process the markers file
-    const markersText = readPoemFileSync(process.env.POEM_MARKERS_FILE as string);
+    const markersText = readPoemFileSync(rootPath + process.env.POEM_MARKERS_FILE);
 
     const markers: Marker[] = markersText.trim().split('\n').slice(1).map(line => {
       const separator = line.includes('\t') ? '\t' : ',';
