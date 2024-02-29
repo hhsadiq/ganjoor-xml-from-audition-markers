@@ -33,13 +33,13 @@ function generateSyncInfo(couplets: CoupletType[]): SyncInfoType[] {
     // Assuming the first verse corresponds to the 'persian1' field
     syncInfoArray.push({
       VerseOrder: index * 2, // Even index for the first verse of each couplet
-      AudioMiliseconds: couplet.coupletStartTime * 1000
+      AudioMiliseconds: Math.round(couplet.coupletStartTime * 1000)
     });
 
     // Assuming the second verse corresponds to the 'persian2' field
     syncInfoArray.push({
       VerseOrder: index * 2 + 1, // Odd index for the second verse of each couplet
-      AudioMiliseconds: couplet.verseEndTime * 1000
+      AudioMiliseconds: Math.round(couplet.verseEndTime * 1000)
     });
   });
 
